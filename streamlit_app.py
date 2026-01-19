@@ -26,16 +26,16 @@ STRICT RULES:
 - Maintain readability without formatting symbols
 
 CONTENT STRUCTURE:
-Introduction
-Why This Topic Matters Now
-Concept Explained Simply
-Business Benefits
-Industry Use Cases
-Technical Deep Dive
-ROI and Business Impact
-Future Trends
-Challenges and Solutions
-Conclusion
+Introduction:
+Why This Topic Matters Now:
+Concept Explained Simply:
+Business Benefits:
+Industry Use Cases:
+Technical Deep Dive:
+ROI and Business Impact:
+Future Trends:
+Challenges and Solutions:
+Conclusion:
 
 CONTENT REQUIREMENTS:
 - Begin with a relatable narrative introduction
@@ -74,7 +74,6 @@ def main():
         if not topic.strip():
             st.error("Please enter a topic first.")
         else:
-            st.write("Generating content... Please wait.")
             blog = generate_hybrid_blog(topic)
             st.text_area("Generated Blog Content", blog, height=600)
 
