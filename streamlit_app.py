@@ -4,10 +4,8 @@ from openai import OpenAI
 import streamlit as st
 
 load_dotenv()
-
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
-# BLOG GENERATOR FUNCTION
 def generate_hybrid_blog(topic):
     prompt = f"""
 You are a senior Generative AI engineer and professional content strategist.
@@ -26,16 +24,16 @@ STRICT RULES:
 - Maintain readability without formatting symbols
 
 CONTENT STRUCTURE:
-Introduction:
-Why This Topic Matters Now:
-Concept Explained Simply:
-Business Benefits:
-Industry Use Cases:
-Technical Deep Dive:
-ROI and Business Impact:
-Future Trends:
-Challenges and Solutions:
-Conclusion:
+Introduction
+Why This Topic Matters Now
+Concept Explained Simply
+Business Benefits
+Industry Use Cases
+Technical Deep Dive
+ROI and Business Impact
+Future Trends
+Challenges and Solutions
+Conclusion
 
 CONTENT REQUIREMENTS:
 - Begin with a relatable narrative introduction
@@ -59,24 +57,28 @@ Generate the full article now.
         temperature=0.7,
         max_tokens=2500
     )
-
     return response.choices[0].message.content
 
-#  STREAMLIT UI
-def main():
-    st.title("Software Development & AI Companies Blog Generator")
 
-    st.write("Enter your topic below and generate a professional blog designed for both business and developer audiences.")
+def main():
+    st.title("Hybrid Blog Generator for Software Development & AI Companies")
 
     topic = st.text_input("Enter Blog Topic")
+
+    # Initialize session state variable if not exists
+    if "blog_content" not in st.session_state:
+        st.session_state.blog_content = ""
 
     if st.button("Generate Blog"):
         if not topic.strip():
             st.error("Please enter a topic first.")
         else:
-            st.write("Generating content... Please wait.")
-            blog = generate_hybrid_blog(topic)
-            st.text_area("Generated Blog Content", blog, height=600)
+            with st.spinner("Generating content... Please wait."):
+                blog = generate_hybrid_blog(topic)
+                st.session_state.blog_content = blog
+
+    if st.session_state.blog_content:
+        st.text_area("Generated Blog Content", st.session_state.blog_content, height=600)
 
 
 if __name__ == "__main__":
