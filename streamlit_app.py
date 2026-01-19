@@ -74,6 +74,7 @@ def main():
         if not topic.strip():
             st.error("Please enter a topic first.")
         else:
+            st.write("Generating content... Please wait.")
             blog = generate_hybrid_blog(topic)
             st.text_area("Generated Blog Content", blog, height=600)
 
